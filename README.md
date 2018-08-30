@@ -37,7 +37,7 @@ Note the keyword arguments for the function were not provided in the specificati
 
 
 ```python
-X, y = make_blobs(n_samples=400, n_features=2, centers=7, cluster_std=0.8)
+X, y = None
 ```
 
 Now, run the cell below to visualize the dataset we've created. 
@@ -46,10 +46,6 @@ Now, run the cell below to visualize the dataset we've created.
 ```python
 plt.scatter(X[:, 0], X[:, 1], c = y, s = 25);
 ```
-
-
-![png](output_5_0.png)
-
 
 In this image, you can see the clusters as they are generated. Let's now see if the k means clustering algorithm can discover these clusters in our dataset.
 
@@ -63,8 +59,9 @@ As always, don't hesitate to look at the [documentation](http://scikit-learn.org
 
 
 ```python
-k_means = KMeans(n_clusters = 7)
-k_means.fit(X)
+k_means = None
+# dont forget to fit the model!
+
 y_hat = k_means.predict(X)
 ```
 
@@ -76,10 +73,6 @@ plt.scatter(X[:, 0], X[:, 1], c = y_hat, s = 25)
 cl_centers = k_means.cluster_centers_
 plt.scatter(cl_centers[:, 0], cl_centers[:, 1], c='black', s=100);
 ```
-
-
-![png](output_9_0.png)
-
 
 As you can see, the algorithm is pretty good at identifying the clusters. Do keep in mind that for a real data set, you will not be able to evaluate the method as such, as we don't know a priori what the clusters should be. This is the nature of unsupervised learning. The Scikit learn documentation does suggest two methods to evaluate your clusters when the "ground truth" is not known: the Silhouette coefficient and the Calinski-Harabaz Index. We'll talk about them later, but first, let's look at the Scikit learn options when using the KMeans function.
 
@@ -123,18 +116,12 @@ In the cell below:
 
 
 ```python
-from sklearn import metrics
-labels = k_means.labels_
+from None import None
+labels = None
 
-metrics.silhouette_score(X, labels, metric='euclidean')
+# Call silhouette_score() below!
+
 ```
-
-
-
-
-    0.5628473532993684
-
-
 
 Obviously, this number isn't very informative by itself, it only really is informative when you compare it to another coefficient. Let's look at the coefficient when we would have fitted a model with only 6 clusters.
 
@@ -147,32 +134,22 @@ In the cell below:
 
 
 ```python
-k_means_6 = KMeans(n_clusters = 6)
-k_means_6.fit(X)
-yhat_6 = k_means_6.predict(X)
-plt.scatter(X[:, 0], X[:, 1], c = y_hat, s = 25)
-cl_centers_6 = k_means_6.cluster_centers_
-plt.scatter(cl_centers_6[:, 0], cl_centers_6[:, 1], c='black', s=100);
+k_means_6 = None
+# Don't forget to fit this model, too!
+
+yhat_6 = None
+
+# Import and modify the visualization code below this line!
 ```
-
-
-![png](output_18_0.png)
-
 
 Now, in the cell below, calculate the silhouette score for this new model, so that we can compare it to the model with 7 clusters. 
 
 
 ```python
-labels_6 = k_means_6.labels_
-metrics.silhouette_score(X, labels_6, metric='euclidean')
+labels_6 = None
+
+# Generate a silhouette score for this model below this line!
 ```
-
-
-
-
-    0.5513501487467306
-
-
 
 Seems like 7 clusters generated a better result according to the silhouette coefficient!
 
@@ -201,31 +178,7 @@ To wrap this lab up, let's generate Calinski-Harabaz scores for both of the mode
 
 You'll find the `calinski_harabaz_score()` function inside the `metrics` module, just like `silhouette_score`.  Call this function now to generate a score for the model with 7 clusters. 
 
-
-```python
-metrics.calinski_harabaz_score(X, labels)  
-```
-
-
-
-
-    1414.350976005445
-
-
-
 Now, call it for the model with 6 clusters, so that we can compare the scores for each.  The higher score is the one that better fits the data. 
-
-
-```python
-metrics.calinski_harabaz_score(X, labels_6)  
-```
-
-
-
-
-    1155.528719694376
-
-
 
 Also here, the CH index is higher for the model with 7 clusters!
 
